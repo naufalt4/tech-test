@@ -24,10 +24,10 @@ public class KonsumenService {
         return konsumen;
     }
 
-    public Page<Konsumen> findAll(Konsumen konsumenFilter, Integer page, Integer size) {
+    public Page<Konsumen> search(Konsumen konsumenFilter, Integer page, Integer size) {
         Pageable paging = PageRequest.of(page, size);
 
-        Page<Konsumen> konsumen = konsumenRepository.findByNamaOrAlamatOrKotaOrProvinsiOrStatusIgnoreCaseContaining(
+        Page<Konsumen> konsumen = konsumenRepository.search(
             konsumenFilter.getNama(), konsumenFilter.getAlamat(), konsumenFilter.getKota(), konsumenFilter.getProvinsi(),
             konsumenFilter.getStatus(), paging);
        

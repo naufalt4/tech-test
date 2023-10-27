@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="ISO-8859-1" />
+    <title>Tambah Konsumen</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <div class="container" align="center">
+      <div class="card mt-4 pt-2 px-4" style="width:50%">
+        <div class="card-body justify-content-center">
+          <div class="row pb-2">
+            <a
+              th:href="@{/konsumen}"
+              class="btn bg-transparent mr-2"
+              ><i class="fa fa-arrow-left" style="color:black;font-size:25px"></i></a
+            >
+            <h2>Tambah Konsumen</h2>
+          </div>
+            <form
+              action="#"
+              th:action="@{/konsumen/save}"
+              th:object="${konsumen}"
+              method="POST"
+            >
+              <div class="row mb-3">
+                <span class="mb-1 required">Nama</span>
+                <input
+                  type="text"
+                  th:field="*{nama}"
+                  placeholder="Nama"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="row mb-3">
+                <span class="mb-1">Alamat</span>
+                <input
+                  type="text"
+                  th:field="*{alamat}"
+                  placeholder="Alamat"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="row mb-3">
+                <span class="mb-1">Kota</span>
+                <input
+                  type="text"
+                  th:field="*{kota}"
+                  placeholder="Kota"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="row mb-3">
+                <span class="mb-1">Provinsi</span>
+                <input
+                  type="text"
+                  th:field="*{provinsi}"
+                  placeholder="Provinsi"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="row mb-3">
+                <span class="mb-1">Tanggal Registrasi</span>
+                <input
+                  type="date"
+                  th:field="*{tanggalRegistrasi}"
+                  placeholder="Tanggal Registrasi"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="row mb-3">
+                <span class="mb-1">Status</span>
+                <select
+                  th:field="*{status}"
+                  aria-placeholder="Status"
+                  class="form-control"
+                  required
+                >
+                  <option value="">Pilih Status</option>
+                  <option value="Aktif">Aktif</option>
+                  <option value="Non-Aktif">Non-Aktif</option>
+                </select>
+
+              </div>
+              <div class="row py-3" style="justify-content:right">
+                <button type="submit" class="btn btn-info" style="width:100px">Save</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

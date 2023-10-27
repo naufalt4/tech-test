@@ -48,11 +48,11 @@ public class KonsumenController {
     public ResponseEntity<Object> searchKonsumen(
             @RequestParam(name = "page", required = false) Integer page,
             @RequestParam(name = "size", required = false) Integer size,
-            @RequestParam(name = "nama", required = false) String nama,
-            @RequestParam(name = "alamat", required = false) String alamat,
-            @RequestParam(name = "kota", required = false) String kota,
-            @RequestParam(name = "provinsi", required = false) String provinsi,
-            @RequestParam(name = "status", required = false) String status) {
+            @RequestParam(name = "nama", required = false, defaultValue = "") String nama,
+            @RequestParam(name = "alamat", required = false, defaultValue = "") String alamat,
+            @RequestParam(name = "kota", required = false, defaultValue = "") String kota,
+            @RequestParam(name = "provinsi", required = false, defaultValue = "") String provinsi,
+            @RequestParam(name = "status", required = false, defaultValue = "") String status) {
 
         ResponseDTO response = new ResponseDTO();
 
@@ -72,19 +72,15 @@ public class KonsumenController {
             page -= 1;
         }
 
-        nama = (nama == null) ? "" : nama;
-        alamat = (alamat == null) ? "" : alamat;
-        kota = (kota == null) ? "" : kota;
-        provinsi = (provinsi == null) ? "" : provinsi;
-        status = (status == null) ? "" : status;
-
+        nama = (nama == null || nama.equals("null")) ? "" : nama;
+        alamat = (alamat == null || alamat.equals("null")) ? "" : alamat;
+        kota = (kota == null || kota.equals("null")) ? "" : kota;
+        provinsi = (provinsi == null || provinsi.equals("null")) ? "" : provinsi;
+        status = (status == null || status.equals("null")) ? "" : status;
+        
         Page<Konsumen> konsumen = null;
-        if(nama != "" || alamat != "" || kota != "" || provinsi != "" || status != ""){
-            Konsumen filterKonsumen = new Konsumen(null, nama, alamat, kota, provinsi, null, status);
-            konsumen = konsumenService.findAll(filterKonsumen, page, size);
-        }else{
-            konsumen = konsumenService.findAll(page, size);
-        }
+        Konsumen filterKonsumen = new Konsumen(null, nama, alamat, kota, provinsi, null, status);
+        konsumen = konsumenService.search(filterKonsumen, page, size);
 
         response.setData(konsumen.getContent());
         response.getHeaders().set("X_Paging_Page", String.valueOf(konsumen.getNumber() + 1));
